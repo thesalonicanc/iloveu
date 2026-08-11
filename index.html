@@ -3,239 +3,193 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>I Love You</title>
+
+<title>I Love You ❤️</title>
 
 <style>
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at center,
+            #222733 0%,
+            #171b27 38%,
+            #0b0e15 72%,
+            #040507 100%
+        );
+
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+/* =========================================
+   SCENE
+========================================= */
+
+.scene {
+    width: 100%;
+    height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    position: relative;
+}
+
+
+/* =========================================
+   GLOW BACKGROUND
+========================================= */
+
+.glow {
+    position: absolute;
+
+    width: 430px;
+    height: 430px;
+
+    border-radius: 50%;
+
+    background: rgba(255, 60, 130, 0.07);
+
+    filter: blur(100px);
+
+    animation: glow 4s ease-in-out infinite;
+}
+
+@keyframes glow {
+
+    0%, 100% {
+        transform: scale(.85);
+        opacity: .35;
     }
 
-    body {
-        width: 100%;
-        min-height: 100vh;
-        overflow: hidden;
-        background:
-            radial-gradient(circle at center, #172033 0%, #0b0e16 45%, #050609 100%);
-        font-family: "Segoe UI", Arial, sans-serif;
+    50% {
+        transform: scale(1.15);
+        opacity: .8;
+    }
+}
+
+
+/* =========================================
+   HEART
+========================================= */
+
+#heart {
+    position: relative;
+
+    width: 620px;
+    height: 560px;
+
+    animation: floating 5s ease-in-out infinite;
+}
+
+
+@keyframes floating {
+
+    0%, 100% {
+        transform: translateY(0);
     }
 
-    .scene {
-        position: relative;
-        width: 100vw;
-        height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+    50% {
+        transform: translateY(-6px);
+    }
+}
+
+
+/* =========================================
+   SEMUA TEKS TETAP HORIZONTAL
+========================================= */
+
+.love {
+    position: absolute;
+
+    transform:
+        translate(-50%, -50%);
+
+    white-space: nowrap;
+
+    color: white;
+
+    font-size: 10px;
+
+    font-weight: 600;
+
+    letter-spacing: 0;
+
+    /*
+        PENTING:
+        tidak ada rotate() di sini.
+        Jadi tulisan selalu horizontal.
+    */
+
+    text-shadow:
+        0 0 3px #ffffff,
+        0 0 6px #ffb5d0,
+        0 0 11px #ff649b,
+        0 0 20px #ff3d83;
+
+    pointer-events: none;
+
+    will-change: transform;
+}
+
+
+/* =========================================
+   KEDIP
+========================================= */
+
+.love.blink {
+    animation: blink 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes blink {
+
+    from {
+        opacity: .35;
     }
 
-    /* Cahaya samar di belakang */
-    .glow {
-        position: absolute;
-        width: 430px;
-        height: 430px;
-        background: rgba(255, 80, 150, 0.08);
-        filter: blur(90px);
-        border-radius: 50%;
-        animation: breathe 4s ease-in-out infinite;
+    to {
+        opacity: 1;
     }
+}
 
-    /* Tempat semua tulisan */
-    .heart {
-        position: relative;
-        width: 500px;
-        height: 470px;
-        transform: rotate(-45deg);
-        animation: floating 5s ease-in-out infinite;
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 700px) {
+
+    #heart {
+        transform: scale(.72);
     }
+}
 
-    .text {
-        position: absolute;
-        color: #fff;
-        font-size: 14px;
-        font-weight: 600;
-        white-space: nowrap;
+@media (max-width: 450px) {
 
-        text-shadow:
-            0 0 4px #fff,
-            0 0 8px #ff9fc6,
-            0 0 16px #ff4f91,
-            0 0 30px rgba(255, 55, 130, 0.9);
-
-        opacity: 0.9;
-        transform: rotate(45deg);
-        animation: twinkle 2s ease-in-out infinite alternate;
+    #heart {
+        transform: scale(.55);
     }
+}
 
-    /* Kumpulan tulisan membentuk hati */
-    .t1  { left: 210px; top: 25px; }
-    .t2  { left: 170px; top: 38px; }
-    .t3  { left: 135px; top: 55px; }
-    .t4  { left: 105px; top: 73px; }
-    .t5  { left: 75px;  top: 93px; }
-    .t6  { left: 48px;  top: 115px; }
-    .t7  { left: 25px;  top: 140px; }
-    .t8  { left: 12px;  top: 165px; }
-    .t9  { left: 0px;   top: 190px; }
-
-    .t10 { left: 5px;   top: 215px; }
-    .t11 { left: 18px;  top: 240px; }
-    .t12 { left: 32px;  top: 265px; }
-    .t13 { left: 48px;  top: 290px; }
-    .t14 { left: 67px;  top: 315px; }
-    .t15 { left: 88px;  top: 340px; }
-    .t16 { left: 110px; top: 365px; }
-    .t17 { left: 135px; top: 390px; }
-    .t18 { left: 160px; top: 415px; }
-    .t19 { left: 185px; top: 435px; }
-
-    /* Sisi kanan */
-    .r1  { left: 250px; top: 25px; }
-    .r2  { left: 285px; top: 38px; }
-    .r3  { left: 320px; top: 55px; }
-    .r4  { left: 350px; top: 75px; }
-    .r5  { left: 380px; top: 95px; }
-    .r6  { left: 405px; top: 120px; }
-    .r7  { left: 425px; top: 145px; }
-    .r8  { left: 440px; top: 175px; }
-    .r9  { left: 450px; top: 205px; }
-
-    .r10 { left: 440px; top: 230px; }
-    .r11 { left: 425px; top: 255px; }
-    .r12 { left: 405px; top: 280px; }
-    .r13 { left: 385px; top: 305px; }
-    .r14 { left: 360px; top: 330px; }
-    .r15 { left: 335px; top: 355px; }
-    .r16 { left: 310px; top: 380px; }
-    .r17 { left: 285px; top: 405px; }
-    .r18 { left: 260px; top: 430px; }
-
-    /* Bagian tengah */
-    .center {
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%) rotate(45deg);
-        color: white;
-        font-size: 19px;
-        font-weight: bold;
-        letter-spacing: 1px;
-
-        text-shadow:
-            0 0 5px white,
-            0 0 12px #ff83b0,
-            0 0 25px #ff397e,
-            0 0 50px #ff397e;
-
-        animation: pulse 1.8s ease-in-out infinite;
-        white-space: nowrap;
-    }
-
-    /* Tambahan tulisan kecil random */
-    .small {
-        font-size: 11px;
-        opacity: 0.65;
-    }
-
-    .s1 {
-        left: 150px;
-        top: 130px;
-        animation-delay: .3s;
-    }
-
-    .s2 {
-        left: 290px;
-        top: 145px;
-        animation-delay: .7s;
-    }
-
-    .s3 {
-        left: 155px;
-        top: 285px;
-        animation-delay: 1s;
-    }
-
-    .s4 {
-        left: 285px;
-        top: 300px;
-        animation-delay: 1.4s;
-    }
-
-    /* Animasi */
-    @keyframes pulse {
-        0%, 100% {
-            opacity: .75;
-            transform: translate(-50%, -50%) rotate(45deg) scale(1);
-        }
-
-        50% {
-            opacity: 1;
-            transform: translate(-50%, -50%) rotate(45deg) scale(1.08);
-        }
-    }
-
-    @keyframes twinkle {
-        from {
-            opacity: .45;
-        }
-
-        to {
-            opacity: 1;
-        }
-    }
-
-    @keyframes breathe {
-        0%, 100% {
-            transform: scale(.9);
-            opacity: .5;
-        }
-
-        50% {
-            transform: scale(1.15);
-            opacity: .9;
-        }
-    }
-
-    @keyframes floating {
-        0%, 100% {
-            transform: rotate(-45deg) translateY(0);
-        }
-
-        50% {
-            transform: rotate(-45deg) translateY(-8px);
-        }
-    }
-
-    /* Mobile */
-    @media (max-width: 600px) {
-
-        .heart {
-            transform: rotate(-45deg) scale(.62);
-        }
-
-        .heart {
-            animation: floatingMobile 5s ease-in-out infinite;
-        }
-
-        @keyframes floatingMobile {
-            0%, 100% {
-                transform: rotate(-45deg) scale(.62) translateY(0);
-            }
-
-            50% {
-                transform: rotate(-45deg) scale(.62) translateY(-8px);
-            }
-        }
-    }
-
-    @media (min-width: 601px) and (max-width: 900px) {
-        .heart {
-            transform: rotate(-45deg) scale(.8);
-        }
-    }
 </style>
 </head>
+
 
 <body>
 
@@ -243,63 +197,381 @@
 
     <div class="glow"></div>
 
-    <div class="heart">
-
-        <!-- Sisi kiri -->
-        <div class="text t1">I love you</div>
-        <div class="text t2">I love you</div>
-        <div class="text t3">I love you</div>
-        <div class="text t4">I love you</div>
-        <div class="text t5">I love you</div>
-        <div class="text t6">I love you</div>
-        <div class="text t7">I love you</div>
-        <div class="text t8">I love you</div>
-        <div class="text t9">I love you</div>
-        <div class="text t10">I love you</div>
-        <div class="text t11">I love you</div>
-        <div class="text t12">I love you</div>
-        <div class="text t13">I love you</div>
-        <div class="text t14">I love you</div>
-        <div class="text t15">I love you</div>
-        <div class="text t16">I love you</div>
-        <div class="text t17">I love you</div>
-        <div class="text t18">I love you</div>
-        <div class="text t19">I love you</div>
-
-        <!-- Sisi kanan -->
-        <div class="text r1">I love you</div>
-        <div class="text r2">I love you</div>
-        <div class="text r3">I love you</div>
-        <div class="text r4">I love you</div>
-        <div class="text r5">I love you</div>
-        <div class="text r6">I love you</div>
-        <div class="text r7">I love you</div>
-        <div class="text r8">I love you</div>
-        <div class="text r9">I love you</div>
-        <div class="text r10">I love you</div>
-        <div class="text r11">I love you</div>
-        <div class="text r12">I love you</div>
-        <div class="text r13">I love you</div>
-        <div class="text r14">I love you</div>
-        <div class="text r15">I love you</div>
-        <div class="text r16">I love you</div>
-        <div class="text r17">I love you</div>
-        <div class="text r18">I love you</div>
-
-        <!-- Tulisan kecil di dalam -->
-        <div class="text small s1">I love you</div>
-        <div class="text small s2">I love you</div>
-        <div class="text small s3">I love you</div>
-        <div class="text small s4">I love you</div>
-
-        <!-- Tulisan utama -->
-        <div class="center">
-            I LOVE YOU
-        </div>
-
-    </div>
+    <div id="heart"></div>
 
 </div>
+
+
+<script>
+
+/* =====================================================
+   PENGATURAN
+===================================================== */
+
+
+/*
+    Jumlah tulisan di sekeliling hati.
+*/
+
+const jumlah = 110;
+
+
+/*
+    Kecepatan mengelilingi hati.
+
+    Semakin besar = semakin cepat.
+*/
+
+const speed = 0.00055;
+
+
+/*
+    Ukuran area.
+*/
+
+const width = 620;
+const height = 560;
+
+
+/*
+    Titik tengah.
+*/
+
+const centerX = width / 2;
+const centerY = height / 2;
+
+
+/*
+    Ukuran hati.
+*/
+
+const scaleX = 18.2;
+const scaleY = 18.2;
+
+
+const heart =
+    document.getElementById("heart");
+
+
+/* =====================================================
+   RUMUS HATI
+===================================================== */
+
+function heartPoint(t) {
+
+    /*
+        Rumus parametric heart
+    */
+
+    const x =
+        16 *
+        Math.pow(Math.sin(t), 3);
+
+
+    const y =
+        13 * Math.cos(t)
+        - 5 * Math.cos(2 * t)
+        - 2 * Math.cos(3 * t)
+        - Math.cos(4 * t);
+
+
+    return {
+
+        x:
+            centerX + x * scaleX,
+
+        y:
+            centerY - y * scaleY
+
+    };
+}
+
+
+/* =====================================================
+   NORMAL HATI
+===================================================== */
+
+
+/*
+    Kita cari arah "ke dalam" hati.
+
+    Ini dipakai untuk membuat beberapa
+    lapisan tulisan, supaya hasilnya
+    tidak cuma satu garis.
+*/
+
+function getNormal(t) {
+
+    const p1 =
+        heartPoint(t - 0.002);
+
+    const p2 =
+        heartPoint(t + 0.002);
+
+
+    const dx =
+        p2.x - p1.x;
+
+    const dy =
+        p2.y - p1.y;
+
+
+    /*
+        Vector normal.
+    */
+
+    let nx = -dy;
+    let ny = dx;
+
+
+    const length =
+        Math.sqrt(nx * nx + ny * ny);
+
+
+    nx /= length;
+    ny /= length;
+
+
+    /*
+        Pastikan normal mengarah
+        menuju tengah hati.
+    */
+
+    const cx =
+        centerX - p1.x;
+
+    const cy =
+        centerY - p1.y;
+
+
+    if (
+        nx * cx +
+        ny * cy < 0
+    ) {
+
+        nx *= -1;
+        ny *= -1;
+    }
+
+
+    return {
+        x: nx,
+        y: ny
+    };
+}
+
+
+/* =====================================================
+   BUAT TULISAN
+===================================================== */
+
+const texts = [];
+
+
+/*
+    Beberapa lapisan.
+
+    Ini yang membuat hasilnya
+    terlihat seperti foto:
+    bukan cuma satu garis.
+*/
+
+const layers = [
+
+    0,
+    9,
+    18,
+    27
+
+];
+
+
+for (let i = 0; i < jumlah; i++) {
+
+    for (
+        let layer = 0;
+        layer < layers.length;
+        layer++
+    ) {
+
+        const text =
+            document.createElement("div");
+
+
+        text.className =
+            "love";
+
+
+        text.innerText =
+            "I love you";
+
+
+        /*
+            Ukuran kecil seperti foto.
+        */
+
+        text.style.fontSize =
+            (8.5 + Math.random() * 2) +
+            "px";
+
+
+        /*
+            Beberapa dibuat lebih terang.
+        */
+
+        if (
+            Math.random() > .82
+        ) {
+
+            text.classList.add("blink");
+        }
+
+
+        /*
+            Posisi awal sepanjang hati.
+        */
+
+        const angle =
+            (
+                Math.PI * 2 / jumlah
+            ) * i;
+
+
+        texts.push({
+
+            element: text,
+
+            angle: angle,
+
+            /*
+                Lapisan dari outline
+                menuju bagian dalam.
+            */
+
+            layer:
+                layers[layer],
+
+            /*
+                Sedikit variasi.
+            */
+
+            offset:
+                (Math.random() - .5) * 3
+
+        });
+
+
+        heart.appendChild(text);
+    }
+}
+
+
+/* =====================================================
+   ANIMASI
+===================================================== */
+
+let start = null;
+
+
+function animate(time) {
+
+    if (!start) {
+        start = time;
+    }
+
+
+    const elapsed =
+        time - start;
+
+
+    /*
+        INI YANG MEMBUAT SEMUA
+        BERGERAK SEARAH JARUM JAM.
+    */
+
+    const movement =
+        elapsed * speed;
+
+
+    texts.forEach(item => {
+
+        /*
+            Setiap tulisan bergerak
+            mengikuti kurva hati.
+        */
+
+        const t =
+            item.angle + movement;
+
+
+        /*
+            Posisi dasar outline.
+        */
+
+        const point =
+            heartPoint(t);
+
+
+        /*
+            Arah ke dalam hati.
+        */
+
+        const normal =
+            getNormal(t);
+
+
+        /*
+            Geser sedikit ke dalam.
+
+            Jadi terdapat beberapa baris
+            tulisan yang mengikuti outline.
+        */
+
+        const distance =
+            item.layer +
+            item.offset;
+
+
+        const x =
+            point.x +
+            normal.x * distance;
+
+
+        const y =
+            point.y +
+            normal.y * distance;
+
+
+        /*
+            PENTING:
+
+            Hanya translate.
+
+            TIDAK ADA rotate.
+
+            Jadi semua "I love you"
+            tetap HORIZONTAL.
+        */
+
+        item.element.style.transform =
+            `
+            translate(
+                ${x}px,
+                ${y}px
+            )
+            translate(-50%, -50%)
+            `;
+
+    });
+
+
+    requestAnimationFrame(animate);
+}
+
+
+requestAnimationFrame(animate);
+
+</script>
 
 </body>
 </html>
