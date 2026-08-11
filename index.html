@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>I Love You</title>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        width: 100%;
+        min-height: 100vh;
+        overflow: hidden;
+        background:
+            radial-gradient(circle at center, #172033 0%, #0b0e16 45%, #050609 100%);
+        font-family: "Segoe UI", Arial, sans-serif;
+    }
+
+    .scene {
+        position: relative;
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    /* Cahaya samar di belakang */
+    .glow {
+        position: absolute;
+        width: 430px;
+        height: 430px;
+        background: rgba(255, 80, 150, 0.08);
+        filter: blur(90px);
+        border-radius: 50%;
+        animation: breathe 4s ease-in-out infinite;
+    }
+
+    /* Tempat semua tulisan */
+    .heart {
+        position: relative;
+        width: 500px;
+        height: 470px;
+        transform: rotate(-45deg);
+        animation: floating 5s ease-in-out infinite;
+    }
+
+    .text {
+        position: absolute;
+        color: #fff;
+        font-size: 14px;
+        font-weight: 600;
+        white-space: nowrap;
+
+        text-shadow:
+            0 0 4px #fff,
+            0 0 8px #ff9fc6,
+            0 0 16px #ff4f91,
+            0 0 30px rgba(255, 55, 130, 0.9);
+
+        opacity: 0.9;
+        transform: rotate(45deg);
+        animation: twinkle 2s ease-in-out infinite alternate;
+    }
+
+    /* Kumpulan tulisan membentuk hati */
+    .t1  { left: 210px; top: 25px; }
+    .t2  { left: 170px; top: 38px; }
+    .t3  { left: 135px; top: 55px; }
+    .t4  { left: 105px; top: 73px; }
+    .t5  { left: 75px;  top: 93px; }
+    .t6  { left: 48px;  top: 115px; }
+    .t7  { left: 25px;  top: 140px; }
+    .t8  { left: 12px;  top: 165px; }
+    .t9  { left: 0px;   top: 190px; }
+
+    .t10 { left: 5px;   top: 215px; }
+    .t11 { left: 18px;  top: 240px; }
+    .t12 { left: 32px;  top: 265px; }
+    .t13 { left: 48px;  top: 290px; }
+    .t14 { left: 67px;  top: 315px; }
+    .t15 { left: 88px;  top: 340px; }
+    .t16 { left: 110px; top: 365px; }
+    .t17 { left: 135px; top: 390px; }
+    .t18 { left: 160px; top: 415px; }
+    .t19 { left: 185px; top: 435px; }
+
+    /* Sisi kanan */
+    .r1  { left: 250px; top: 25px; }
+    .r2  { left: 285px; top: 38px; }
+    .r3  { left: 320px; top: 55px; }
+    .r4  { left: 350px; top: 75px; }
+    .r5  { left: 380px; top: 95px; }
+    .r6  { left: 405px; top: 120px; }
+    .r7  { left: 425px; top: 145px; }
+    .r8  { left: 440px; top: 175px; }
+    .r9  { left: 450px; top: 205px; }
+
+    .r10 { left: 440px; top: 230px; }
+    .r11 { left: 425px; top: 255px; }
+    .r12 { left: 405px; top: 280px; }
+    .r13 { left: 385px; top: 305px; }
+    .r14 { left: 360px; top: 330px; }
+    .r15 { left: 335px; top: 355px; }
+    .r16 { left: 310px; top: 380px; }
+    .r17 { left: 285px; top: 405px; }
+    .r18 { left: 260px; top: 430px; }
+
+    /* Bagian tengah */
+    .center {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%) rotate(45deg);
+        color: white;
+        font-size: 19px;
+        font-weight: bold;
+        letter-spacing: 1px;
+
+        text-shadow:
+            0 0 5px white,
+            0 0 12px #ff83b0,
+            0 0 25px #ff397e,
+            0 0 50px #ff397e;
+
+        animation: pulse 1.8s ease-in-out infinite;
+        white-space: nowrap;
+    }
+
+    /* Tambahan tulisan kecil random */
+    .small {
+        font-size: 11px;
+        opacity: 0.65;
+    }
+
+    .s1 {
+        left: 150px;
+        top: 130px;
+        animation-delay: .3s;
+    }
+
+    .s2 {
+        left: 290px;
+        top: 145px;
+        animation-delay: .7s;
+    }
+
+    .s3 {
+        left: 155px;
+        top: 285px;
+        animation-delay: 1s;
+    }
+
+    .s4 {
+        left: 285px;
+        top: 300px;
+        animation-delay: 1.4s;
+    }
+
+    /* Animasi */
+    @keyframes pulse {
+        0%, 100% {
+            opacity: .75;
+            transform: translate(-50%, -50%) rotate(45deg) scale(1);
+        }
+
+        50% {
+            opacity: 1;
+            transform: translate(-50%, -50%) rotate(45deg) scale(1.08);
+        }
+    }
+
+    @keyframes twinkle {
+        from {
+            opacity: .45;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+
+    @keyframes breathe {
+        0%, 100% {
+            transform: scale(.9);
+            opacity: .5;
+        }
+
+        50% {
+            transform: scale(1.15);
+            opacity: .9;
+        }
+    }
+
+    @keyframes floating {
+        0%, 100% {
+            transform: rotate(-45deg) translateY(0);
+        }
+
+        50% {
+            transform: rotate(-45deg) translateY(-8px);
+        }
+    }
+
+    /* Mobile */
+    @media (max-width: 600px) {
+
+        .heart {
+            transform: rotate(-45deg) scale(.62);
+        }
+
+        .heart {
+            animation: floatingMobile 5s ease-in-out infinite;
+        }
+
+        @keyframes floatingMobile {
+            0%, 100% {
+                transform: rotate(-45deg) scale(.62) translateY(0);
+            }
+
+            50% {
+                transform: rotate(-45deg) scale(.62) translateY(-8px);
+            }
+        }
+    }
+
+    @media (min-width: 601px) and (max-width: 900px) {
+        .heart {
+            transform: rotate(-45deg) scale(.8);
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<div class="scene">
+
+    <div class="glow"></div>
+
+    <div class="heart">
+
+        <!-- Sisi kiri -->
+        <div class="text t1">I love you</div>
+        <div class="text t2">I love you</div>
+        <div class="text t3">I love you</div>
+        <div class="text t4">I love you</div>
+        <div class="text t5">I love you</div>
+        <div class="text t6">I love you</div>
+        <div class="text t7">I love you</div>
+        <div class="text t8">I love you</div>
+        <div class="text t9">I love you</div>
+        <div class="text t10">I love you</div>
+        <div class="text t11">I love you</div>
+        <div class="text t12">I love you</div>
+        <div class="text t13">I love you</div>
+        <div class="text t14">I love you</div>
+        <div class="text t15">I love you</div>
+        <div class="text t16">I love you</div>
+        <div class="text t17">I love you</div>
+        <div class="text t18">I love you</div>
+        <div class="text t19">I love you</div>
+
+        <!-- Sisi kanan -->
+        <div class="text r1">I love you</div>
+        <div class="text r2">I love you</div>
+        <div class="text r3">I love you</div>
+        <div class="text r4">I love you</div>
+        <div class="text r5">I love you</div>
+        <div class="text r6">I love you</div>
+        <div class="text r7">I love you</div>
+        <div class="text r8">I love you</div>
+        <div class="text r9">I love you</div>
+        <div class="text r10">I love you</div>
+        <div class="text r11">I love you</div>
+        <div class="text r12">I love you</div>
+        <div class="text r13">I love you</div>
+        <div class="text r14">I love you</div>
+        <div class="text r15">I love you</div>
+        <div class="text r16">I love you</div>
+        <div class="text r17">I love you</div>
+        <div class="text r18">I love you</div>
+
+        <!-- Tulisan kecil di dalam -->
+        <div class="text small s1">I love you</div>
+        <div class="text small s2">I love you</div>
+        <div class="text small s3">I love you</div>
+        <div class="text small s4">I love you</div>
+
+        <!-- Tulisan utama -->
+        <div class="center">
+            I LOVE YOU
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
