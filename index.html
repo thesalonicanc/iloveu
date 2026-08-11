@@ -25,20 +25,20 @@ body {
 
     background:
         radial-gradient(
-            circle at center,
-            #222733 0%,
-            #171b27 38%,
-            #0b0e15 72%,
-            #040507 100%
+            ellipse at center,
+            #202633 0%,
+            #141925 38%,
+            #090c13 72%,
+            #030405 100%
         );
 
     font-family: Arial, Helvetica, sans-serif;
 }
 
 
-/* =========================================
+/* ===============================
    SCENE
-========================================= */
+================================ */
 
 .scene {
     width: 100%;
@@ -49,12 +49,15 @@ body {
     align-items: center;
 
     position: relative;
+
+    perspective: 1200px;
+    perspective-origin: 50% 50%;
 }
 
 
-/* =========================================
-   GLOW BACKGROUND
-========================================= */
+/* ===============================
+   BACKGROUND GLOW
+================================ */
 
 .glow {
     position: absolute;
@@ -64,18 +67,23 @@ body {
 
     border-radius: 50%;
 
-    background: rgba(255, 60, 130, 0.07);
+    background:
+        radial-gradient(
+            circle,
+            rgba(255, 70, 140, .12),
+            rgba(255, 70, 140, 0)
+        );
 
-    filter: blur(100px);
+    filter: blur(55px);
 
-    animation: glow 4s ease-in-out infinite;
+    animation: glow 5s ease-in-out infinite;
 }
 
 @keyframes glow {
 
-    0%, 100% {
+    0%,100% {
         transform: scale(.85);
-        opacity: .35;
+        opacity: .45;
     }
 
     50% {
@@ -85,102 +93,130 @@ body {
 }
 
 
-/* =========================================
+/* ===============================
    HEART
-========================================= */
+================================ */
 
 #heart {
+
     position: relative;
 
     width: 620px;
     height: 560px;
 
-    animation: floating 5s ease-in-out infinite;
+    transform-style: preserve-3d;
+
+    /*
+       Gerakan sangat halus,
+       bukan naik turun berlebihan.
+    */
+
+    animation: heartFloat 7s ease-in-out infinite;
 }
 
+@keyframes heartFloat {
 
-@keyframes floating {
-
-    0%, 100% {
-        transform: translateY(0);
+    0%,100% {
+        transform:
+            translate3d(0, 0, 0)
+            rotateX(0deg)
+            rotateY(0deg);
     }
 
     50% {
-        transform: translateY(-6px);
+        transform:
+            translate3d(0, -5px, 0)
+            rotateX(.7deg)
+            rotateY(-1deg);
     }
 }
 
 
-/* =========================================
-   SEMUA TEKS TETAP HORIZONTAL
-========================================= */
+/* ===============================
+   TEXT
+================================ */
 
 .love {
+
     position: absolute;
 
-    transform:
-        translate(-50%, -50%);
+    left: 0;
+    top: 0;
 
     white-space: nowrap;
 
-    color: white;
+    color: #fff;
 
     font-size: 10px;
 
     font-weight: 600;
 
-    letter-spacing: 0;
+    letter-spacing: .1px;
+
+    transform-style: preserve-3d;
+
+    backface-visibility: visible;
 
     /*
-        PENTING:
-        tidak ada rotate() di sini.
-        Jadi tulisan selalu horizontal.
+       Ini penting agar font
+       tidak terasa terlalu kaku.
     */
 
+    font-synthesis: none;
+
     text-shadow:
-        0 0 3px #ffffff,
-        0 0 6px #ffb5d0,
-        0 0 11px #ff649b,
-        0 0 20px #ff3d83;
+        0 0 2px rgba(255,255,255,.95),
+        0 0 5px rgba(255,170,205,.9),
+        0 0 10px rgba(255,75,145,.8),
+        0 0 18px rgba(255,35,115,.55);
 
     pointer-events: none;
 
-    will-change: transform;
+    will-change: transform, opacity;
+
+    /*
+       Perubahan opacity yang lembut.
+    */
+
+    transition:
+        opacity .5s ease;
 }
 
 
-/* =========================================
-   KEDIP
-========================================= */
+/* ===============================
+   RANDOM GLOW
+================================ */
 
 .love.blink {
-    animation: blink 1.5s ease-in-out infinite alternate;
+
+    animation:
+        blink 2.4s ease-in-out infinite;
 }
 
 @keyframes blink {
 
-    from {
+    0%,100% {
         opacity: .35;
     }
 
-    to {
+    50% {
         opacity: 1;
     }
 }
 
 
-/* =========================================
+/* ===============================
    MOBILE
-========================================= */
+================================ */
 
-@media (max-width: 700px) {
+@media(max-width:700px) {
 
     #heart {
         transform: scale(.72);
     }
 }
 
-@media (max-width: 450px) {
+@media(max-width:450px) {
 
     #heart {
         transform: scale(.55);
@@ -205,48 +241,64 @@ body {
 <script>
 
 /* =====================================================
-   PENGATURAN
+   CONFIG
 ===================================================== */
 
 
 /*
-    Jumlah tulisan di sekeliling hati.
+    Jumlah tulisan.
+
+    85 = lebih renggang
+    110 = sedang
+    135 = lebih padat
 */
 
-const jumlah = 110;
+const jumlah =
+    105;
 
 
 /*
-    Kecepatan mengelilingi hati.
+    Kecepatan.
 
-    Semakin besar = semakin cepat.
+    Jangan terlalu cepat supaya
+    efek 3D bisa terlihat.
 */
 
-const speed = 0.00055;
-
-
-/*
-    Ukuran area.
-*/
-
-const width = 620;
-const height = 560;
-
-
-/*
-    Titik tengah.
-*/
-
-const centerX = width / 2;
-const centerY = height / 2;
+const speed =
+    0.00042;
 
 
 /*
     Ukuran hati.
 */
 
-const scaleX = 18.2;
-const scaleY = 18.2;
+const width =
+    620;
+
+const height =
+    560;
+
+
+/*
+    Tengah.
+*/
+
+const centerX =
+    width / 2;
+
+const centerY =
+    height / 2;
+
+
+/*
+    Skala hati.
+*/
+
+const scaleX =
+    18.2;
+
+const scaleY =
+    18.2;
 
 
 const heart =
@@ -254,18 +306,17 @@ const heart =
 
 
 /* =====================================================
-   RUMUS HATI
+   HEART CURVE
 ===================================================== */
 
 function heartPoint(t) {
 
-    /*
-        Rumus parametric heart
-    */
-
     const x =
         16 *
-        Math.pow(Math.sin(t), 3);
+        Math.pow(
+            Math.sin(t),
+            3
+        );
 
 
     const y =
@@ -278,35 +329,27 @@ function heartPoint(t) {
     return {
 
         x:
-            centerX + x * scaleX,
+            centerX +
+            x * scaleX,
 
         y:
-            centerY - y * scaleY
-
+            centerY -
+            y * scaleY
     };
 }
 
 
 /* =====================================================
-   NORMAL HATI
+   NORMAL
 ===================================================== */
-
-
-/*
-    Kita cari arah "ke dalam" hati.
-
-    Ini dipakai untuk membuat beberapa
-    lapisan tulisan, supaya hasilnya
-    tidak cuma satu garis.
-*/
 
 function getNormal(t) {
 
     const p1 =
-        heartPoint(t - 0.002);
+        heartPoint(t - .002);
 
     const p2 =
-        heartPoint(t + 0.002);
+        heartPoint(t + .002);
 
 
     const dx =
@@ -316,37 +359,39 @@ function getNormal(t) {
         p2.y - p1.y;
 
 
+    let nx =
+        -dy;
+
+    let ny =
+        dx;
+
+
+    const len =
+        Math.sqrt(
+            nx * nx +
+            ny * ny
+        );
+
+
+    nx /= len;
+    ny /= len;
+
+
     /*
-        Vector normal.
+       Pastikan normal mengarah
+       ke dalam hati.
     */
 
-    let nx = -dy;
-    let ny = dx;
-
-
-    const length =
-        Math.sqrt(nx * nx + ny * ny);
-
-
-    nx /= length;
-    ny /= length;
-
-
-    /*
-        Pastikan normal mengarah
-        menuju tengah hati.
-    */
-
-    const cx =
+    const centerDirectionX =
         centerX - p1.x;
 
-    const cy =
+    const centerDirectionY =
         centerY - p1.y;
 
 
     if (
-        nx * cx +
-        ny * cy < 0
+        nx * centerDirectionX +
+        ny * centerDirectionY < 0
     ) {
 
         nx *= -1;
@@ -362,76 +407,83 @@ function getNormal(t) {
 
 
 /* =====================================================
-   BUAT TULISAN
+   BUAT TEXT
 ===================================================== */
 
 const texts = [];
 
 
 /*
-    Beberapa lapisan.
+   4 lapisan.
 
-    Ini yang membuat hasilnya
-    terlihat seperti foto:
-    bukan cuma satu garis.
+   Ini membuat outline lebih
+   "berisi" seperti foto.
 */
 
 const layers = [
-
     0,
-    9,
-    18,
-    27
-
+    8,
+    16,
+    24
 ];
 
 
-for (let i = 0; i < jumlah; i++) {
+for (
+    let i = 0;
+    i < jumlah;
+    i++
+) {
 
     for (
-        let layer = 0;
-        layer < layers.length;
-        layer++
+        let l = 0;
+        l < layers.length;
+        l++
     ) {
 
-        const text =
+        const element =
             document.createElement("div");
 
 
-        text.className =
+        element.className =
             "love";
 
 
-        text.innerText =
+        element.innerText =
             "I love you";
 
 
         /*
-            Ukuran kecil seperti foto.
+           Ukuran sedikit berbeda.
         */
 
-        text.style.fontSize =
-            (8.5 + Math.random() * 2) +
-            "px";
+        const size =
+            8.5 +
+            Math.random() * 2.2;
+
+
+        element.style.fontSize =
+            size + "px";
 
 
         /*
-            Beberapa dibuat lebih terang.
+           Glow random.
         */
 
         if (
-            Math.random() > .82
+            Math.random() > .78
         ) {
 
-            text.classList.add("blink");
+            element.classList.add(
+                "blink"
+            );
         }
 
 
         /*
-            Posisi awal sepanjang hati.
+           Posisi sepanjang hati.
         */
 
-        const angle =
+        const baseAngle =
             (
                 Math.PI * 2 / jumlah
             ) * i;
@@ -439,38 +491,69 @@ for (let i = 0; i < jumlah; i++) {
 
         texts.push({
 
-            element: text,
+            element,
 
-            angle: angle,
-
-            /*
-                Lapisan dari outline
-                menuju bagian dalam.
-            */
+            baseAngle,
 
             layer:
-                layers[layer],
+                layers[l],
 
             /*
-                Sedikit variasi.
+               Setiap tulisan memiliki
+               kecepatan sedikit berbeda.
+
+               Ini yang membuat gerakan
+               tidak terlihat seperti robot.
+            */
+
+            velocity:
+                0.92 +
+                Math.random() * .16,
+
+            /*
+               Phase berbeda.
+            */
+
+            phase:
+                Math.random() *
+                Math.PI * 2,
+
+            /*
+               Kedalaman masing-masing
+               tulisan.
+            */
+
+            depth:
+                Math.random() * 20 - 10,
+
+            /*
+               Sudut 3D awal.
+            */
+
+            tilt:
+                Math.random() * 8 - 4,
+
+            /*
+               Sedikit variasi posisi.
             */
 
             offset:
-                (Math.random() - .5) * 3
+                Math.random() * 2 - 1
 
         });
 
 
-        heart.appendChild(text);
+        heart.appendChild(element);
     }
 }
 
 
 /* =====================================================
-   ANIMASI
+   ANIMATION
 ===================================================== */
 
-let start = null;
+let start =
+    null;
 
 
 function animate(time) {
@@ -484,28 +567,26 @@ function animate(time) {
         time - start;
 
 
-    /*
-        INI YANG MEMBUAT SEMUA
-        BERGERAK SEARAH JARUM JAM.
-    */
-
-    const movement =
-        elapsed * speed;
-
-
     texts.forEach(item => {
 
         /*
-            Setiap tulisan bergerak
-            mengikuti kurva hati.
+           =================================================
+           GERAKAN SEARAH JARUM JAM
+           =================================================
+
+           Setiap tulisan punya velocity
+           yang sedikit berbeda.
         */
 
         const t =
-            item.angle + movement;
+            item.baseAngle +
+            elapsed *
+            speed *
+            item.velocity;
 
 
         /*
-            Posisi dasar outline.
+           Posisi outline.
         */
 
         const point =
@@ -513,7 +594,7 @@ function animate(time) {
 
 
         /*
-            Arah ke dalam hati.
+           Normal ke dalam.
         */
 
         const normal =
@@ -521,55 +602,165 @@ function animate(time) {
 
 
         /*
-            Geser sedikit ke dalam.
+           =================================================
+           PERGERAKAN DEPTH
+           =================================================
 
-            Jadi terdapat beberapa baris
-            tulisan yang mengikuti outline.
+           Tulisan tidak hanya bergerak
+           pada X dan Y.
+
+           Ia juga sedikit maju mundur
+           di ruang 3D.
         */
+
+        const wave =
+            Math.sin(
+                t * 2.3 +
+                item.phase
+            );
+
+
+        const depth =
+            item.depth +
+            wave * 8;
+
+
+        /*
+           Geser sedikit masuk keluar
+           dari outline.
+        */
+
+        const breathing =
+            Math.sin(
+                t * 1.8 +
+                item.phase
+            ) * 1.8;
+
 
         const distance =
             item.layer +
-            item.offset;
+            item.offset +
+            breathing;
 
 
         const x =
             point.x +
-            normal.x * distance;
+            normal.x *
+            distance;
 
 
         const y =
             point.y +
-            normal.y * distance;
+            normal.y *
+            distance;
 
 
         /*
-            PENTING:
+           =================================================
+           3D PARALLAX
+           =================================================
+        */
 
-            Hanya translate.
 
-            TIDAK ADA rotate.
+        /*
+           Menghadap sedikit ke kanan.
 
-            Jadi semua "I love you"
-            tetap HORIZONTAL.
+           Tidak sama untuk setiap teks.
+        */
+
+        const rotateY =
+            -12 +
+            Math.sin(
+                t * 1.4 +
+                item.phase
+            ) * 7;
+
+
+        /*
+           Sedikit maju mundur.
+        */
+
+        const rotateX =
+            Math.cos(
+                t * 1.7 +
+                item.phase
+            ) * 3;
+
+
+        /*
+           Scale berdasarkan depth.
+
+           Yang terasa lebih dekat
+           sedikit lebih besar.
+        */
+
+        const scale =
+            1 +
+            depth / 650;
+
+
+        /*
+           =================================================
+           TRANSFORM
+           =================================================
+
+           TIDAK ADA rotateZ.
+
+           Jadi tulisan tetap horizontal.
         */
 
         item.element.style.transform =
             `
-            translate(
+            translate3d(
                 ${x}px,
-                ${y}px
+                ${y}px,
+                ${depth}px
             )
+
             translate(-50%, -50%)
+
+            rotateY(${rotateY}deg)
+
+            rotateX(${rotateX}deg)
+
+            scale(${scale})
             `;
+
+
+        /*
+           Sedikit perubahan opacity
+           berdasarkan kedalaman.
+        */
+
+        const opacity =
+            .48 +
+            (
+                (depth + 20) /
+                40
+            ) * .45;
+
+
+        item.element.style.opacity =
+            Math.max(
+                .3,
+                Math.min(
+                    1,
+                    opacity
+                )
+            );
 
     });
 
 
-    requestAnimationFrame(animate);
+    requestAnimationFrame(
+        animate
+    );
 }
 
 
-requestAnimationFrame(animate);
+requestAnimationFrame(
+    animate
+);
 
 </script>
 
